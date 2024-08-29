@@ -78,4 +78,21 @@ describe('Mathematical Operations - Test Suite', () => {
     // Assert the quotient is as expected
     assert.equal(quotient, 2);
   });
+
+  /**
+   * Test case for negative results.
+   * 
+   * This test will try to verify th addition of 2 numbers with false/defective results. 
+   */
+  it('Negative Test (will Fail)', () => {
+	// Define two numbers
+	const num1 = 10;
+    const num2 = 20;
+
+	// Perform addition
+    const sum = num1 + num2;
+
+	// Assert the sum with a false result(10)
+    assert.equal(sum, 10);
+  });
 });
