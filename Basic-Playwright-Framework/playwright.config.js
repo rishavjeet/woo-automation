@@ -37,7 +37,8 @@ module.exports = defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: {
+		...devices['Desktop Chrome'] },
     },
 
     {
@@ -49,6 +50,14 @@ module.exports = defineConfig({
       name: 'webkit',
       use: { ...devices['Desktop Safari'] },
     },
+
+	{
+		name: 'TestEmulation',
+		use: {
+			viewport: {width:800, height: 800},
+			userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.6613.18 Safari/537.36'
+		}
+	}
 
     /* Test against mobile viewports. */
     // {
