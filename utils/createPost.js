@@ -5,12 +5,13 @@
  * and publishes the post. It assumes the user is already logged in to the WordPress admin dashboard.
  * 
  * @param {object} page - The Playwright `page` object representing the browser page context.
+ * @param {String} postTitle - The title of the post to be created
  * 
  * Function Details:
  * - The title of the post is hardcoded as "Test Post".
  * - The content of the post is hardcoded as "test post content".
  */
-const createWpPost = async ( page ) => {
+const createWpPost = async ( page, postTitle ) => {
 	// Navigate to the "Posts" section in the WordPress admin dashboard
 	await page.getByRole('link', { name: 'Posts', exact: true }).click();
 	
@@ -19,7 +20,7 @@ const createWpPost = async ( page ) => {
 	
 	// Access the editor iframe and click on the "Add title" field to enter the post title
 	await page.locator('iframe[name="editor-canvas"]').contentFrame().getByLabel('Add title').click();
-	await page.locator('iframe[name="editor-canvas"]').contentFrame().getByLabel('Add title').fill('Test Post');
+	await page.locator('iframe[name="editor-canvas"]').contentFrame().getByLabel('Add title').fill(postTitle);
 	
 	// Access the default block and enter content for the post
 	await page.locator('iframe[name="editor-canvas"]').contentFrame().getByLabel('Add default block').click();

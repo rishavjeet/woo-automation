@@ -9,6 +9,8 @@ import { adminLogin } from '../utils/userLogin';
 
 import { createWpPost } from '../utils/createPost';
 
+import { generateTestCode } from '../utils/generateRandomCode';
+
 /**
  * Test: WP Add Post
  * 
@@ -20,8 +22,14 @@ test('WP Add Post Test', async ({ page }) => {
 	// Log in as the WordPress admin using the utility function
 	await adminLogin(page);
 
+	// Generate a 4-digit code for post title.
+	const postTitleCode = generateTestCode();
+
+	// Create the post title by concating the number.
+	const postTitle = `Test Post-${postTitleCode}`;
+
 	// Create a new WordPress post using the utility function
-	await createWpPost(page);
+	await createWpPost(page,postTitle);
 	
 	// Navigate to the post list by clicking the "View Posts" button
 	await page.getByLabel('View Posts').click();
@@ -30,5 +38,5 @@ test('WP Add Post Test', async ({ page }) => {
 	 * Assert that the new post appears in the post list
      * The post is identified by its title "Test Post" and "Edit" option
 	 */
-	await expect(page.getByLabel('“Test Post” (Edit)')).toBeVisible();
+	await expect(page.getByLabel(`“${postTitle}” (Edit)`)).toBeVisible();
 });
