@@ -43,7 +43,7 @@ test.describe("Post Management Test suits", async () => {
    * This test automates the process of logging in as an admin, creating a new post,
    * and verifying that the post appears in the WordPress admin dashboard's post list.
    */
-  test("WP Add Post Test", async ({ page }) => {
+  test.only("WP Add Post Test", async ({ page }) => {
     // Log in as the WordPress admin using the utility function
     await adminLogin(page);
 
