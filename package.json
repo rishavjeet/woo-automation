@@ -1,0 +1,14 @@
+{
+  "name": "testautomation-hands-on",
+  "version": "1.0.0",
+  "description": "This repository is for doing hands-on practice for the Playwright Framework",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.49.1",
+    "@types/node": "^22.10.1"
+  }
+}
