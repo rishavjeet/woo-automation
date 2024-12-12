@@ -1,3 +1,5 @@
+import 'dotenv/config';
+
 const { test, expect } = require('@playwright/test');
 
 const { generateTestCode } = require('../utils/generateRandomCode');
@@ -15,7 +17,7 @@ test('Tests User Sign-up feature', async({page})=>{
 
 	const userPassword = `test${testRandomCode}`;
 
-	await page.goto('https://thinking-tester-contact-list.herokuapp.com/');
+	await page.goto(process.env.TEST_WEBSITE_URL);
 	await page.getByRole('button', { name: 'Sign up' }).click();
 	await page.getByPlaceholder('First Name').click();
 	await page.getByPlaceholder('First Name').fill(userFirstName);

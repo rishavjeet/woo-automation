@@ -1,6 +1,6 @@
 import 'dotenv/config';
 
-const userSignUp = async(page)=>{
+const loginToAccount = async(page)=>{
 	await page.goto(process.env.TEST_WEBSITE_URL);
 	await page.getByPlaceholder('Email').click();
 	await page.getByPlaceholder('Email').fill(process.env.EMAIL);
@@ -10,5 +10,5 @@ const userSignUp = async(page)=>{
 }
 
 module.exports = {
-	userSignUp
+	loginToAccount
 }
