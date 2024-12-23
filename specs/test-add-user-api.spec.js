@@ -1,15 +1,25 @@
+import 'dotenv/config';
+
 const {test, expect} = require('@playwright/test');
 
+const { generateTestCode } = require('../utils/generateRandomCode');
+
 test('Test Add User Api', async({request})=>{
-	const response = await request.post('https://thinking-tester-contact-list.herokuapp.com/users',{
+
+	const testCode = generateTestCode();
+	const firstName = `firstname${testCode}`;
+	const lastName = `lastname${testCode}`;
+	const email = `${firstName}@test.com`;
+
+	const response = await request.post(`${process.env.TEST_WESITE_API}/users`,{
 		data:{
-				"firstName": "Test",
-				"lastName": "User",
-				"email": "wewfdvafvvt1234@fake.com",
+				"firstName": firstName,
+				"lastName": lastName,
+				"email": email,
 				"password": "myPassword"
 		},
 		headers: {
-			"Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzU4MTMwYjlmNGM4ZDAwMTNjYzQ3ODkiLCJpYXQiOjE3MzQwMDM2MDl9.e8ipQl8GzOCR3CAT37dOKxN3X7vWj390CyPfekGZSjw"
+			"Authorization": `Bearer ${process.env.AUTHORIZATION_KEY}`
 		}
 	});
 
