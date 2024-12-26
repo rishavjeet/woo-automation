@@ -2,9 +2,9 @@ import 'dotenv/config';
 
 const { test, expect } = require('@playwright/test');
 
-const { loginToAccount } = require('../utils/userLogin');
-const { generateTestCode } = require('../utils/generateRandomCode');
-const { addContactRecord } = require('../utils/addContact');
+const { loginToAccount } = require('../utils/e2eUtils/userLogin');
+const { generateTestCode } = require('../utils/e2eUtils/generateRandomCode');
+const { addContactRecord } = require('../utils/apiUtils/addContact');
 
 test.describe('Test suite for testing the Update contact feature', () => {
 

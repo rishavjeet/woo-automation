@@ -10,11 +10,11 @@ import 'dotenv/config';
 
 const {test, expect} = require('@playwright/test');
 
-const { generateTestCode } = require('../utils/generateRandomCode');
+const { generateTestCode } = require('../utils/e2eUtils/generateRandomCode');
 
-const { addContactRecord } = require('../utils/addContact');
+const { addContactRecord } = require('../utils/apiUtils/addContact');
 
-const { loginToAccount } = require('../utils/userLogin');
+const { loginToAccount } = require('../utils/e2eUtils/userLogin');
 
 
 /**

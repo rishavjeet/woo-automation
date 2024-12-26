@@ -9,8 +9,8 @@ import 'dotenv/config';
 
 const { test, expect } = require('@playwright/test');
 
-const { loginToAccount } = require('../utils/userLogin');
-const { generateTestCode } = require('../utils/generateRandomCode');
+const { loginToAccount } = require('../utils/e2eUtils/userLogin');
+const { generateTestCode } = require('../utils/e2eUtils/generateRandomCode');
 
 /**
  * Test: Add a New Contact Record

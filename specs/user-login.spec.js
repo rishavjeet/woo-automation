@@ -1,6 +1,6 @@
 const { test, expect } = require('@playwright/test');
 
-const { loginToAccount } = require('../utils/userLogin');
+const { loginToAccount } = require('../utils/e2eUtils/userLogin');
 
 /**
  * Test suite for verifying the user login functionality.
