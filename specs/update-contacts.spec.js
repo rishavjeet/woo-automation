@@ -6,35 +6,58 @@ const { loginToAccount } = require('../utils/userLogin');
 const { generateTestCode } = require('../utils/generateRandomCode');
 const { addContactRecord } = require('../utils/addContact');
 
-test('Test Update Contact records', async({page, request}) => {
+test.describe('Test suite for testing the Update contact feature', () => {
+
+	// Stores the random test code
+	let testCode = 0;
+
+	// Stores the firstname of the user
+	let firstName = '';
+
+	// Stores the lastname of the user
+	let lastName = '';
+
+	// Stores the email of the user
+	let email = '';
+
+	// Stores the updated test code for testing the update feature
+	let testUpdatedCode = '';
 
 
-	// Generate a unique code for test data to avoid duplication.
-	const testCode = generateTestCode();
+	test.beforeAll(async({request})=>{
+		// Generate a unique code for test data to avoid duplication.
+		testCode = generateTestCode();
+	
+		// Define test data for the new contact.
+		firstName = `firstname${testCode}`;
+		lastName = `lastname${testCode}`;
+		email = `${firstName}@test.com`;
+	
+		// Generate the updated code
+		testUpdatedCode = generateTestCode()
+	
+		// Make an API call to add a new contact.
+		const response = await addContactRecord(request, firstName, lastName, email);
 
-	// Define test data for the new contact.
-	const firstName = `firstname${testCode}`;
-	const lastName = `lastname${testCode}`;
-	const email = `${firstName}@test.com`;
+		console.log(response);
+	})
 
-	// Generate the updated code
-	const testUpdatedCode = generateTestCode()
-
-	// Make an API call to add a new contact.
-	const response = await addContactRecord(request, firstName, lastName, email);
-
-	// Log in to the application using the predefined utility function.
-	await loginToAccount(page);
-
-	await page.getByRole('cell', { name: `${firstName} ${lastName}` }).click();
-	await page.getByRole('button', { name: 'Edit Contact' }).click();
-	await page.getByLabel('First Name:').click();
-	await page.getByLabel('First Name:').fill(`${firstName}${testUpdatedCode}`);
-	await page.getByLabel('Last Name:').click();
-	await page.getByLabel('Last Name:').fill(`${lastName}${testUpdatedCode}`);
-	await page.getByRole('button', { name: 'Submit' }).click();
-	await page.getByRole('button', { name: 'Return to Contact List' }).click();
-
-	await expect(page.getByRole('cell', {name: `${firstName}${testUpdatedCode} ${lastName}${testUpdatedCode}`})).toBeVisible();
-
+	test('Test Update Contact records', async({page, request}) => {
+	
+		// Login to the account
+		await loginToAccount(page);
+	
+		await page.getByRole('cell', { name: `${firstName} ${lastName}` }).click();
+		await page.getByRole('button', { name: 'Edit Contact' }).click();
+		await page.getByLabel('First Name:').click();
+		await page.getByLabel('First Name:').fill(`${firstName}${testUpdatedCode}`);
+		await page.getByLabel('Last Name:').click();
+		await page.getByLabel('Last Name:').fill(`${lastName}${testUpdatedCode}`);
+		// await expect(page.getByLabel('Email:')).toHaveValue(`email`,{timeout: 1500});
+		await page.getByRole('button', { name: 'Submit' }).click();
+		await page.getByRole('button', { name: 'Return to Contact List' }).click();
+	
+		await expect(page.getByRole('cell', {name: `${firstName}${testUpdatedCode} ${lastName}${testUpdatedCode}`})).toBeVisible();
+	
+	})
 })
