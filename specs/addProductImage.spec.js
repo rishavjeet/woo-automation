@@ -1,10 +1,26 @@
 const { test, expect } = require("@wordpress/e2e-test-utils-playwright");
 const { addNewProduct } = require("../utils/e2eUtils/createProductUtils");
 
+const {generateTestCode} = require('../utils/e2eUtils/randomTestCode');
+
 
 test.describe('Test the Product Image Feature', ()=>{
+
+	let testCode = 0;
+	let productTitle = '';
+	let productDescription = '';
+
+	test.beforeAll(()=>{
+
+		testCode = generateTestCode();
+
+		productTitle = `Product Demo Title ${testCode}`;
+		productDescription = `Demo Product Description ${testCode}`;
+
+	});
+
 	test('It should be able to upload product image', async({admin,page})=>{
-		await addNewProduct(admin, page);
+		await addNewProduct(admin, page, productTitle, productDescription);
 
 		await page.getByRole('link', { name: 'Set product image' }).click();
 		await page.getByLabel('Select Files').click();

@@ -1,11 +1,11 @@
-const addNewProduct = async (admin, page) => {
+const addNewProduct = async (admin, page, productTitle, productDescription) => {
   await admin.visitAdminPage("/post-new.php", "post_type=product");
 
-  const productTitle = page.locator('//input[@id="title"]');
-  await productTitle.fill("Product Demo Title");
+  const productTitleField = page.locator('//input[@id="title"]');
+  await productTitleField.fill(productTitle);
   const productDescIframe = page.frameLocator("#content_ifr");
-  const productDesc = await productDescIframe.locator("body#tinymce p");
-  await productDesc.fill("New content for the paragraph.");
+  const productDescField = await productDescIframe.locator("body#tinymce p");
+  await productDescField.fill(productDescription);
   const submitButton = page.locator('//input[@id="publish"]');
 
   await submitButton.click();
