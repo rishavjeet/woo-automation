@@ -2,6 +2,8 @@ const {test, expect} = require('@wordpress/e2e-test-utils-playwright');
 
 const {generateTestCode} = require('../utils/e2eUtils/randomTestCode');
 
+const {removeTestUserRecord} = require('../utils/e2eUtils/testUserDeletion');
+
 test.describe('It should customer user creation feature', () => {
 
 	let testCode = 0;
@@ -44,4 +46,10 @@ test.describe('It should customer user creation feature', () => {
 		await expect(page.getByRole('cell',{name: `${userName} Edit | Delete | View`})).toBeVisible();
 
 	});
+
+	test.afterEach(async ({admin, page})=>{
+
+		await removeTestUserRecord(admin, page, userName);
+
+	})
 })
