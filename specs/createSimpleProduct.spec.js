@@ -26,7 +26,6 @@ test.describe('It should test the Simple Product Functionality', ()=>{
 	})
 
 	test('It should test the creation of simple product', async({admin, page})=>{
-		// await addNewProduct(admin, page, productTitle, productDescription);
 	
 		await expect(page.locator('//div[@id="message" and contains(@class,"notice-success")]//p')).toContainText('Product published.');
 	
