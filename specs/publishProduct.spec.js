@@ -30,11 +30,11 @@ test.describe('It should verify the verify the visibility of products', ()=>{
 		const viewProductLink = page.locator('//div[@id="message" and contains(@class,"notice-success")]//a');
 		await viewProductLink.click();
 
-		await expect(page).toHaveTitle(`${productTitle}${productDescription} – rishav.rt.gw`);
+		await expect(page).toHaveTitle(`${productTitle} – rishav.rt.gw`);
 
 	})
 
-	test.afterEach(async ({page})=>{
-		await removeTestProductRecord(page, productTitle);
+	test.afterEach(async ({admin, page})=>{
+		await removeTestProductRecord(admin, page, productTitle);
 	});
 })

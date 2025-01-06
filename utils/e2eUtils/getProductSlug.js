@@ -1,6 +1,6 @@
-const extractPrdtSlug = (productTitle, productDescription) => {
+const extractPrdtSlug = (productTitle) => {
 
-	return productTitle.split(" ").join("-").toLowerCase(); + productDescription.split(" ").join("-").toLowerCase();
+	return productTitle.split(" ").join("-").toLowerCase();
 }
 
 module.exports = {

@@ -5,7 +5,11 @@ const addNewProduct = async (admin, page, productTitle, productDescription) => {
   await productTitleField.fill(productTitle);
   const productDescIframe = page.frameLocator("#content_ifr");
   const productDescField = await productDescIframe.locator("body#tinymce p");
+
+  await productDescField.click();
+
   await productDescField.fill(productDescription);
+
   const submitButton = page.locator('//input[@id="publish"]');
 
   await submitButton.click();

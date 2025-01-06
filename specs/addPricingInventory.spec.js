@@ -31,9 +31,9 @@ test.describe('Test should check the Pricing and Inventory feature', () => {
 
 	});
 
-	test.afterEach(async ({page})=>{
+	test.afterEach(async ({admin, page})=>{
 
-		await removeTestProductRecord(page, productTitle);
+		await removeTestProductRecord(admin, page, productTitle);
 		
 	})
 })

@@ -1,14 +1,12 @@
-const {extractPrdtSlug} = require('./getProductSlug');
+const { extractPrdtSlug } = require("./getProductSlug");
 
 const checkoutPlaceOrder = async (
   page,
   firstName,
   lastName,
-  productTitle,
-  productDescription
+  productTitle
 ) => {
-  const prdtSlug = extractPrdtSlug(productTitle, productDescription);
-  console.log(prdtSlug);
+  const prdtSlug = extractPrdtSlug(productTitle);
 
   await page.goto(`${process.env.WP_BASE_URL}product/${prdtSlug}`);
 
