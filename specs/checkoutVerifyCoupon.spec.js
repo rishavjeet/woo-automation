@@ -8,11 +8,11 @@ const {removeTestProductRecord} = require('../utils/e2eUtils/testProductDeletion
 
 const {addPricingInventory} = require('../utils/e2eUtils/productInventoryUtils');
 
-const { extractPrdtSlug } = require("../utils/e2eUtils/getProductSlug");
-
 const {removeTestCouponRecord} = require('../utils/e2eUtils/testCouponDeletion');
 
 const {createCoupon} = require('../utils/e2eUtils/createCouponUtils');
+
+const {applyCouponDiscount} = require('../utils/e2eUtils/applyCouponUtils');
 
 require("dotenv").config();
 
@@ -43,27 +43,9 @@ test.describe('It should test the coupon discounts', ()=> {
 
 	})
 
-	test('The coupons should apply proper discount', async({admin,  page, requestUtils})=>{
+	test('The coupons should apply proper discount', async({admin,  page})=>{
 
-		const prdtSlug = extractPrdtSlug(productTitle);
-
-		await page.goto(`${process.env.WP_BASE_URL}product/${prdtSlug}`);
-
-		const addToCartBtn = page.locator('//button[contains(text(),"Add to cart")]');
-  		await addToCartBtn.click();
-
-		await page.goto(`${process.env.WP_BASE_URL}checkout`);
-
-		const couponFieldBtn = page.locator('//div[contains(@class,"wc-block-components-totals-coupon")]//div[@role="button"]');
-		await couponFieldBtn.click();
-
-		const couponCodeField = page.locator('//input[@id="wc-block-components-totals-coupon__input-coupon"]');
-		await couponCodeField.click();
-
-		await couponCodeField.fill(couponCode);
-
-		const couponApplyBtn = page.locator('//span[contains(text(),"Apply")]');
-		await couponApplyBtn.click();
+		await applyCouponDiscount(page, productTitle, couponCode);
 
 		const discountValue = page.locator('//div[contains(@class,"wc-block-components-totals-discount")]//span[contains(@class,"wc-block-components-totals-item__value")]');
 
