@@ -63,10 +63,10 @@ WP_BASE_URL=
 
 Before running the test scripts, ensure that you have the following:
 
-Node.js (version 14 or later)
-npm (Node Package Manager)
-Playwright (installed automatically through npm)
-WordPress site setup for testing (local or staging environment)
+- `Node.js` (version 14 or later)
+- `npm` (Node Package Manager)
+- Playwright (installed automatically through npm)
+- WordPress site setup for testing (local or staging environment)
 
 ## Running the Tests
 
