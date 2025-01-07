@@ -15,6 +15,9 @@ const { addCustomerUser } = require('../utils/e2eUtils/createCustomerUtils');
 const {customerUserLogin} = require('../utils/e2eUtils/customerLoginUtils');
 
 const {checkoutPlaceOrder} = require('../utils/e2eUtils/checkoutPlaceOrderUtils');
+
+const {adminLogin} = require('../utils/e2eUtils/adminLoginUtils');
+
 const { consumers } = require("stream");
 
 require("dotenv").config();
@@ -85,19 +88,16 @@ test.describe('Test should verify the chekcout workflow', ()=>{
 
 	test.afterEach(async ({admin, page, requestUtils})=>{
 
-		await page.goto(`${process.env.WP_BASE_URL}my-account`);
-
-		const logoutLink = page.locator('//li//a[contains(text(),"Log out")]');
-		await logoutLink.click();
-
-		// await requestUtils.deleteUser( customerUserId );
+		await requestUtils.deleteAllUsers();
 
 		// await requestUtils.login({
 		// 	username: process.env.WP_USERNAME,
 		// 	password: process.env.WP_PASSWORD
 		// });
 
-		// await removeTestProductRecord(admin, page, productTitle);
+		await adminLogin(page);
+
+		await removeTestProductRecord(admin, page, productTitle);
 
 		// await removeTestUserRecord(admin, page, userName);
 	

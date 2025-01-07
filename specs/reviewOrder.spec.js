@@ -110,19 +110,9 @@ test.describe('Test should verify the chekcout workflow', ()=>{
 
 	test.afterEach(async ({admin, page, requestUtils})=>{
 
-		// await page.goto(`${process.env.WP_BASE_URL}my-account`);
+		await requestUtils.deleteAllUsers();
 
-		// const logoutLink = page.locator('//li//a[contains(text(),"Log out")]');
-		// await logoutLink.click();
-
-		// await requestUtils.login({
-		// 	username: process.env.WP_USERNAME,
-		// 	password: process.env.WP_PASSWORD
-		// });
-
-		// await removeTestProductRecord(admin, page, productTitle);
-
-		// await removeTestUserRecord(admin, page, userName);
+		await removeTestProductRecord(admin, page, productTitle);
 	
 	})
 })
