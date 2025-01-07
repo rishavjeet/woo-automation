@@ -66,14 +66,12 @@ test.describe('Test should verify the chekcout workflow', ()=>{
 		const orderNumberField = page.locator('//span[contains(text(),"Order #:")]/following-sibling::*[1]');
 		const orderNumber = await  orderNumberField.textContent();
 
-		console.log(orderNumber);
-
 		await page.goto(`${process.env.WP_BASE_URL}my-account`);
 
 		const logoutLink = page.locator('//li//a[contains(text(),"Log out")]');
 		await logoutLink.click();
 
-		await page.goto(`${process.env.WP_BASE_URL}login.php`);
+		await page.goto(`${process.env.WP_BASE_URL}wp-login.php`);
 
 		const userNameField = page.locator('//input[@id="user_login"]');
 		await userNameField.fill(`${process.env.WP_USERNAME}`);
@@ -81,7 +79,7 @@ test.describe('Test should verify the chekcout workflow', ()=>{
 		const passwordField = page.locator('//input[@id="user_pass"]');
 		await passwordField.fill(`${process.env.WP_PASSWORD}`);
 
-		const loginBtn = page.locator();
+		const loginBtn = page.locator('//input[@id="wp-submit"]');
 		await loginBtn.click();
 
 		await page.goto(`${process.env.WP_BASE_URL}wp-admin/admin.php?page=wc-orders`);
@@ -90,7 +88,11 @@ test.describe('Test should verify the chekcout workflow', ()=>{
 		await searchCouponField.fill(orderNumber);
 
 		const searchBtn = page.locator('//input[@id="search-submit"]');
-		await searchBtn .click();
+
+		await page.keyboard.press('Enter');
+		// await page.pause();
+
+		// await searchBtn.click();
 
 		const orderRecordData = page.locator('//td[contains(@class,"order_number")]//a[@class="order-view"]//strong');
 
