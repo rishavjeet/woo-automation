@@ -42,6 +42,7 @@ test.describe('It should customer user creation feature', () => {
 	test.beforeAll(()=>{
 		testCode = generateTestCode();
 
+		// User details
 		userName = `TestUserName-${testCode}`;
 		userEmail = `test${testCode}@trial.com`;
 		firstName = `TestFirstName-${testCode}`;
