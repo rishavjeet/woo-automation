@@ -7,6 +7,10 @@ const {removeTestProductRecord} = require('../utils/e2eUtils/testProductDeletion
 
 const { extractPrdtSlug } = require('../utils/e2eUtils/getProductSlug');
 
+const {addProductImage} = require('../utils/e2eUtils/addProductImageUtils');
+
+const {addPricingInventory} = require('../utils/e2eUtils/productInventoryUtils');
+
 
 test.describe('Test the Product Image Feature', ()=>{
 
@@ -17,7 +21,9 @@ test.describe('Test the Product Image Feature', ()=>{
 	/**
 	 * Generates a unique test code and sets up product details before all tests in this suite.
 	 */
-	test.beforeAll(()=>{
+	test.beforeAll(({requestUtils})=>{
+
+		requestUtils.deleteAllMedia();
 
 		// Generate random test code for product details
 		testCode = generateTestCode();
@@ -46,30 +52,16 @@ test.describe('Test the Product Image Feature', ()=>{
 	test('It should be able to upload product image', async({admin,page, requestUtils})=>{
 
 		// Upload a test image to the media library
-		await requestUtils.uploadMedia('assets/product_test_image.png');
+		// await requestUtils.uploadMedia('assets/product_test_image.png');
 
 		// Add a new product with the generated title and description
 		await addNewProduct(admin, page, productTitle, productDescription);
 
-		// Store the current product edit screen URL for later navigation
-		const prdtEditScreen = page.url();
+		// Add pricing and inventory details to the product
+		await addPricingInventory(admin, page);
 
-		await page.getByRole('link', { name: 'Set product image' }).click();
-
-		// Switch to media Library
-		const mediaLibraryTab = await page.locator('//a[text()="Media Library"]');
-		await mediaLibraryTab.click();
-
-		// Click the 'Use as Product Imagw' button
-		const usePrdtImgBtn = await page.locator('//a[text()="Use as product image"]');
-		await usePrdtImgBtn.click();
-
-		// Switch to editor screen
-		await page.goto(prdtEditScreen);
-
-		// Locate the 'Update' button and click it to save the changes
-		const updateButton = page.locator('//input[@id="publish"]');
-		await updateButton.click();
+		// Add Product Image
+		await addProductImage(page, requestUtils);
 
 		// Asserts the image is visible on editor screen
 		const thumbnailImage = page.locator('//a[@id="set-post-thumbnail"]//img');
