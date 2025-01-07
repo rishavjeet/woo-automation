@@ -15,6 +15,7 @@ const { addCustomerUser } = require('../utils/e2eUtils/createCustomerUtils');
 const {customerUserLogin} = require('../utils/e2eUtils/customerLoginUtils');
 
 const {checkoutPlaceOrder} = require('../utils/e2eUtils/checkoutPlaceOrderUtils');
+const { consumers } = require("stream");
 
 require("dotenv").config();
 
@@ -30,7 +31,9 @@ test.describe('Test should verify the chekcout workflow', ()=>{
 	let lastName = '';
 	let password = '';
 
-	test.beforeEach( async ({admin,  page})=>{
+	let customerUserId = 0;
+
+	test.beforeEach( async ({admin,  page, requestUtils})=>{
 
 		testCode = generateTestCode();
 
@@ -47,7 +50,20 @@ test.describe('Test should verify the chekcout workflow', ()=>{
 		lastName = `TestLastName-${testCode}`;
 		password = `TestPassword${testCode}*`;
 
-		await addCustomerUser(admin, page, userName, userEmail, firstName, lastName, password);
+		// await addCustomerUser(admin, page, userName, userEmail, firstName, lastName, password);
+
+		const customerUserData = await requestUtils.createUser({
+			username: userName,
+			email: userEmail,
+			first_name: firstName,
+			last_name: lastName,
+			password,
+			roles: ['customer']
+		});
+
+		customerUserId = customerUserData.id
+
+		console.log(customerUserId);
 
 		await page.goto(`${process.env.WP_BASE_URL}wp-login.php?action=logout`);
 
@@ -73,6 +89,8 @@ test.describe('Test should verify the chekcout workflow', ()=>{
 
 		const logoutLink = page.locator('//li//a[contains(text(),"Log out")]');
 		await logoutLink.click();
+
+		// await requestUtils.deleteUser( customerUserId );
 
 		// await requestUtils.login({
 		// 	username: process.env.WP_USERNAME,

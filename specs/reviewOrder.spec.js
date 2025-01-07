@@ -30,7 +30,7 @@ test.describe('Test should verify the chekcout workflow', ()=>{
 	let lastName = '';
 	let password = '';
 
-	test.beforeEach( async ({admin,  page})=>{
+	test.beforeEach( async ({admin,  page, requestUtils})=>{
 
 		testCode = generateTestCode();
 
@@ -47,7 +47,16 @@ test.describe('Test should verify the chekcout workflow', ()=>{
 		lastName = `TestLastName-${testCode}`;
 		password = `TestPassword${testCode}*`;
 
-		await addCustomerUser(admin, page, userName, userEmail, firstName, lastName, password);
+		// await addCustomerUser(admin, page, userName, userEmail, firstName, lastName, password);
+
+		await requestUtils.createUser({
+			username: userName,
+			email: userEmail,
+			first_name: firstName,
+			last_name: lastName,
+			password,
+			roles: ['customer']
+		});
 
 		await page.goto(`${process.env.WP_BASE_URL}wp-login.php?action=logout`);
 
@@ -90,9 +99,6 @@ test.describe('Test should verify the chekcout workflow', ()=>{
 		const searchBtn = page.locator('//input[@id="search-submit"]');
 
 		await page.keyboard.press('Enter');
-		// await page.pause();
-
-		// await searchBtn.click();
 
 		const orderRecordData = page.locator('//td[contains(@class,"order_number")]//a[@class="order-view"]//strong');
 
