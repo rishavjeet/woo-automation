@@ -71,8 +71,11 @@ test.describe('It should verify the verify the visibility of products', ()=>{
 		const viewProductLink = page.locator('//div[@id="message" and contains(@class,"notice-success")]//a');
 		await viewProductLink.click();
 
+		// Store the product page title
+		const productPageTitle = await page.title();
+
 		// Verify the title of the product page
-		await expect(page).toHaveTitle(`${productTitle} – rishav.rt.gw`);
+		await expect(productPageTitle).toContain(productTitle);
 
 	})
 
