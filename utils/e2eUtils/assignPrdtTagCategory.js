@@ -6,17 +6,20 @@
  * @param {string} tagName - Tag Name
  */
 
-const assignTagCategory = async (page, catName, tagName) => {
-  const categoryCheckBox = page.locator(
-    `//label[@class="selectit" and contains(text(),"${catName}")]//input[contains(@id,"in-product_cat-")]`
-  );
+const assignTagCategory = async (page, tagName, categoryCheckBox) => {
+
   await categoryCheckBox.check();
 
+  // Search for the category and add it
   const tagOption = page.locator('//input[@id="new-tag-product_tag"]');
   await tagOption.fill(tagName);
 
+  // Locate and click on the 'Add' button
   const addTagBtn = page.locator('//input[@value="Add"]');
   await addTagBtn.click();
+
+  // wait for the tag to be added
+  await page.waitForTimeout(2000);
 
   // Locate the 'Update' button and click it to save the changes
   const updateButton = page.locator('//input[@id="publish"]');

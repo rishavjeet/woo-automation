@@ -79,11 +79,19 @@ test.describe('It should assign category and tag to the product', ()=>{
 		// Add a new product using the utility function
 		await addNewProduct(admin, page, productTitle, productDescription);
 
-		await assignTagCategory(page, catName, tagName);
+		// Locate the checkbox for the specific category
+		const categoryCheckBox = page.locator(
+			`//label[@class="selectit" and contains(text(),"${catName}")]//input[contains(@id,"in-product_cat-")]`
+		  );
+		
+		// Assign category and tag using the utility function
+		await assignTagCategory(page, tagName, categoryCheckBox);
 
-		// await expect(categoryCheckBox).toBeChecked();
+		// Assert the specific category is assigned
+		await expect(categoryCheckBox).toBeChecked();
 
-		// await expect(page.locator(`//ul[@class="tagchecklist"]//li`)).toBeVisible();
+		// Assert the specific tag is assigned
+		await expect(page.locator(`//ul[@class="tagchecklist"]//li`)).toBeVisible();
 
 		// Verify success message is visible
 		await expect(page.locator('//div[@id="message" and contains(@class,"notice-success")]')).toBeVisible();
