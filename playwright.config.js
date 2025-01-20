@@ -21,6 +21,11 @@ const STORAGE_STATE_PATH =
  */
 module.exports = defineConfig({
   testDir: fileURLToPath(new URL("./specs", "file:" + __filename).href),
+
+  snapshotPathTemplate: '{snapshotDir}/{arg}{ext}',
+
+  snapshotDir: 'specs/visual-automation-snapshots',
+
   globalSetup: fileURLToPath(
     new URL("./config/global-setup.js", "file:" + __filename).href
   ),
