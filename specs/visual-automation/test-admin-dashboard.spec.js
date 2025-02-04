@@ -18,6 +18,7 @@ test.describe('Admin Dashboard Verification', ()=>{
 		await expect(page).toHaveScreenshot('admin-dashboard.png',{
 			timeout: 2000, // Set the timeout for the screenshot action
 			fullPage: true, // Capture a full-page screenshot
+			// stylePath: path.join(__dirname, 'assets/style.css'),
 		});
 	});
 })
