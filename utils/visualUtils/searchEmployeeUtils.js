@@ -1,4 +1,4 @@
-const searchEmployee = async ( page ) => {
+const searchEmployee = async ( page, empName ) => {
   const pimMenuItem = page.locator(
     '//span[contains(@class,"oxd-main-menu-item--name") and text()="PIM"]'
   );
@@ -9,7 +9,7 @@ const searchEmployee = async ( page ) => {
   );
   await employeeNameField.click();
 
-  await employeeNameField.fill("Amy");
+  await employeeNameField.fill(empName);
 
   const employeeSearchBtn = page.locator("button.orangehrm-left-space");
   await employeeSearchBtn.click();

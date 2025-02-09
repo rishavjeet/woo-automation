@@ -1,7 +1,9 @@
 const { test, expect } = require('@playwright/test');
 
+// Utility function for user login
 const { userLogin } = require('../../utils/visualUtils/loginUtils');
 
+// Utiliy function for employee search
 const { searchEmployee } = require('../../utils/visualUtils/searchEmployeeUtils');
 
 test.describe('Employee Search Results',()=>{
@@ -10,7 +12,7 @@ test.describe('Employee Search Results',()=>{
 		
 		await userLogin(page);
 
-		await searchEmployee(page);
+		await searchEmployee(page, "Amy");
 	});
 
 	test('It should Verify the UI consistency of the Employee List page after performing a search.', async({page})=>{
