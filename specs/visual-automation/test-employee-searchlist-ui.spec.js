@@ -7,25 +7,13 @@ const { searchEmployee } = require('../../utils/visualUtils/searchEmployeeUtils'
 test.describe('Employee Search Results',()=>{
 
 	test.beforeEach(async ({page})=>{
+		
 		await userLogin(page);
 
 		await searchEmployee(page);
 	});
 
 	test('It should Verify the UI consistency of the Employee List page after performing a search.', async({page})=>{
-
-		// const pimMenuItem = page.locator('//span[contains(@class,"oxd-main-menu-item--name") and text()="PIM"]');
-		// await pimMenuItem.click();
-
-		
-		// const employeeNameField = page.locator('.oxd-grid-item.oxd-grid-item--gutters:first-of-type input');
-		// await employeeNameField.click();
-		
-		// await employeeNameField.fill('Amy');
-		
-		// const employeeSearchBtn = page.locator('button.orangehrm-left-space');
-		// await employeeSearchBtn.click();
-
 
 		await page.waitForTimeout(3000);
 		
