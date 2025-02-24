@@ -2,6 +2,8 @@
 
 This repository contains a set of end-to-end (E2E) test scripts designed to automate various processes in WordPress. The tests are written using the **wp-e2e-utils-playwright** framework functions, providing a powerful and flexible solution for testing WordPress websites.
 
+## E2E test scenarios
+
 The test scripts in this repository cover the following areas:
 
 - **Product Management**
@@ -20,6 +22,25 @@ The test scripts in this repository cover the following areas:
   - Create a customer user.
   - Customer places an order.
   - Admin/Store manager reviews the order.
+
+## Visual Test Scenarios
+
+- **Employee Admin Dashboard**
+  - An employee logs into the admin dashboard
+
+- **Search Employee Feature**
+	- Login as an Admin to the dashboard.
+	- Search for the employee.
+	- Show the search list.
+
+- **Add Employee Feature**
+	- Login as an admin
+	- Add a new Employee by adding the reqired data.
+	- Test the UI of the new Employee details page.
+
+- **Assign Supervisor to the Employee**
+	- Create a new Employee.
+	- Edit the details and then assign the supervisor to it.
 
 ### Exclusive Features
 
