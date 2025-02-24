@@ -6,4 +6,3 @@ node_modules/
 .env
 .DS_Store
 artifacts/
-visual-automation-snapshots/
